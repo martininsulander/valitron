@@ -907,4 +907,23 @@ class Validator
             }
         }
     }
+    
+    /**
+     * Convenience method to add multiple validation rules grouped
+     * by field, ['field'=>['rule1', 'rule2'=>'param', 'rule3'],
+     *
+     * @param array $rules
+     */
+    public function rulesPerField($rules)
+    {
+        foreach( $rules as $fieldName=>$fieldRules ) {
+            foreach( $fieldRules as $rk=>$rv ) {
+                if ( is_int( $rk ) ) { // a rule without parameters
+                    $this->rule( $rv, $fieldName );
+                } else {
+                    $this->rule( $rk, $fieldName, $rv );
+                }
+            }
+        }
+    }
 }
